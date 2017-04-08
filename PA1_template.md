@@ -1,6 +1,11 @@
-# Reproducible Research: Peer Assessment 1
-Leszek Felczak  
-April 8, 2017  
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "Leszek Felczak"
+date: "April 8, 2017"
+output: 
+  html_document:
+    keep_md: true
+---
 
 
 
@@ -51,7 +56,7 @@ rawDataSum <- with(rawData,aggregate(steps ~ date, FUN=sum))
 hist(rawDataSum$steps, xlab="Steps", main = "Histogram of the total number of steps taken each day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
 
 ```r
 rawDataMean <- as.integer(mean(rawDataSum$steps))
@@ -74,7 +79,7 @@ plotMeanByInterval <- ggplot(rawDataMeanByInterval, aes(x = interval,y = steps))
 plotMeanByInterval + geom_line(colour = "cyan4", size = 1) + labs(x = "Interval", y = "Steps",  title = "Average daily activity pattern")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 
 ```r
@@ -98,26 +103,6 @@ Created a new dataset that is equal to the original dataset but with the missing
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 rawDataNa <- rawData[is.na(rawData$steps),]
 rawDataNaWithMean <- merge(rawDataNa,rawDataMeanByInterval, by = "interval")
 rawDataNaWithMean <- rawDataNaWithMean[,c(4,3,1)]
@@ -164,7 +149,7 @@ hist(rawDataSum$steps, xlab="Steps", col = "black", add=TRUE)
 legend("topright", c("Included NA(mean)", "Excluded NA"), fill=c("cyan4", "black") )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
 
 
 ```r
@@ -189,10 +174,10 @@ plotFinalMeanByInterval <- ggplot(rawDataFinalMeanByIntervalDayType, aes(x = int
 plotFinalMeanByInterval + geom_line(colour = "black") + labs(x = "Interval", y = "Steps(mean)",  title = "Average daily activity pattern") + facet_grid(day.type ~.)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
 
 Yes, there are two main differencies:
 
-1. Activity pattern is higher in the morning in the weekdays (go to work/school?)
+1. Activity pattern is higher in the morning in the weekdays (go to work/school?).
 
-2. General activity is higher in the weekends (more walks/fitness/trainings and less sitting in the work/school)
+2. General activity is higher in the weekends (more walks/fitness/trainings and less sitting in the work/school?).
